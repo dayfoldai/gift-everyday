@@ -79,7 +79,7 @@
 
 ```bash
 # 把这个仓库放到 OpenClaw 加载本地 skill 的目录
-git clone <this-repo>
+git clone https://github.com/dayfoldai/gift-everyday.git
 
 # 让脚本可执行
 chmod +x scripts/*.sh
@@ -92,27 +92,6 @@ chmod +x scripts/*.sh
 ```
 
 第一次运行会做一次简短的设置：问你三个口味问题，送你第一份onboarding礼物，然后问你要不要每天定时收礼🎁~
-
-### 重跑 `/daily_gift` 会怎样
-
-setup 设计为可重复进入，不会因为你已经跑过一次就把整个 skill 搞乱。
-
-- 如果已经完成 setup，普通情况下它会直接进入手动送礼 / 重配置分支，而不是强制你重答所有 onboarding 问题
-- 如果你主动要求改时间、改模式、补 key，或重置相关状态，它会更新现有配置，而不是假设这是一个全新用户
-- 如果你是重装、迁移或手动清空 `workspace/daily-gift/` 里的状态文件，它会把你当成一次新的 setup
-
-### `user-context.json` 和 `user-taste-profile.json`
-
-这两个文件分工不同，都会影响礼物，但不是一回事：
-
-- `workspace/daily-gift/user-context.json`：轻量、近期、偏 onboarding / 会话来源的上下文线索，适合存可复用的小偏好、近期信号和临时钩子
-- `workspace/daily-gift/user-taste-profile.json`：更稳定的长期 taste / identity memory，也承接 recent-gifts 之后的长期偏好更新
-
-高级用户可以手动编辑它们，但建议：
-
-- 把 `user-context.json` 当成轻量补充，不要把它写成“定性诊断”
-- 把 `user-taste-profile.json` 当成长期偏好档案，不要频繁大改，否则会影响反重复和风格稳定性
-- 改之前先备份；如果两者冲突，skill 更倾向把 `user-taste-profile.json` 视为长期基准
 
 ### 可选配置与外部服务依赖
 
@@ -292,7 +271,7 @@ You don't choose the format. It picks what fits — sometimes a quiet image says
 ## Install
 
 ```bash
-git clone <this-repo>
+git clone https://github.com/dayfoldai/gift-everyday.git
 chmod +x scripts/*.sh
 ```
 
@@ -303,28 +282,6 @@ Then tell OpenClaw:
 ```
 
 First run walks you through a short setup: three taste questions, your first gift, and an invitation to set up daily delivery.
-
-### What Happens If You Run `/daily_gift` Again
-
-Setup is meant to be re-enterable rather than fragile.
-
-- if setup is already complete, the skill normally goes into manual gift / reconfiguration flow instead of forcing the full onboarding questionnaire again
-- if you explicitly want to change schedule, mode, keys, or related settings, it updates the existing state rather than assuming a brand-new user
-- if you reinstall the skill or clear the files under `workspace/daily-gift/`, it will treat that as a fresh setup
-
-### `user-context.json` vs `user-taste-profile.json`
-
-These two files serve different roles:
-
-- `workspace/daily-gift/user-context.json`: lightweight, recent, often onboarding- or conversation-shaped context signals; good for reusable short-term hooks and preferences
-- `workspace/daily-gift/user-taste-profile.json`: the more stable long-term taste / identity memory, also used for longer-range preference updates and anti-repetition behavior
-
-Advanced users can edit them manually, but:
-
-- treat `user-context.json` as soft guidance, not a permanent personality verdict
-- treat `user-taste-profile.json` as the long-term baseline, so frequent large edits may reduce stability and freshness tracking
-- back them up before editing; when the two conflict, the skill leans more heavily on `user-taste-profile.json` as the durable reference
-
 ### Optional Configuration And External Services
 
 Core usage does not require any external service. Everything below is optional and only unlocks extra rendering or delivery capabilities. Without these keys, the skill gracefully falls back to formats that do not depend on them, including text artifacts, interactive text play, or other non-dependent paths.
