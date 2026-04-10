@@ -376,4 +376,4 @@ Small, sharp contributions are preferred, especially ones that improve return qu
 
 ## License
 
-MIT
+Apache 2.0
